@@ -1,0 +1,26 @@
+name: Lint CloudFormation Templates
+
+on: [push]
+
+jobs:
+  cloudformation-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Synthesizes Cloud Formation template
+        run: npm run cdk synth
+
+      - name: Setup Cloud Formation Linter with Latest Version
+        uses: scottbrenner/cfn-lint-action@v2
+
+      - name: Print the Cloud Formation Linter Version & run Linter.
+        run: |
+          cfn-lint --version
+          # -t: Alternative way to specify Template file path to the file that needs to be tested by cfn-lint
+          cfn-lint -t ./hello-cdk/cdk.out/HelloCdkStack.template.json
