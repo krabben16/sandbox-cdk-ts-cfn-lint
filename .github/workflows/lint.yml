@@ -5,6 +5,9 @@ on: [push]
 jobs:
   cloudformation-linter:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./hello-cdk
 
     steps:
       - name: Checkout
@@ -23,4 +26,4 @@ jobs:
         run: |
           cfn-lint --version
           # -t: Alternative way to specify Template file path to the file that needs to be tested by cfn-lint
-          cfn-lint -t ./hello-cdk/cdk.out/HelloCdkStack.template.json
+          cfn-lint -t ./cdk.out/HelloCdkStack.template.json
