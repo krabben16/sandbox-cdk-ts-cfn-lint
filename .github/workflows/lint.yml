@@ -26,4 +26,5 @@ jobs:
         run: |
           cfn-lint --version
           # -t: Alternative way to specify Template file path to the file that needs to be tested by cfn-lint
-          cfn-lint -t ./cdk.out/HelloCdkStack.template.json
+          # -i W: disable all warnings
+          cfn-lint -t ./cdk.out/HelloCdkStack.template.json -i W
